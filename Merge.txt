@@ -1,0 +1,15 @@
+
+Install Meld and then
+open git bash
+
+git config --global merge.tool meld
+git config --global mergetool.meld.path "C:\Program Files (x86)\Meld\Meld.exe"
+
+
+Quando c'è un conflitto:
+ 
+1. faccio " git pull"
+2. "git mergetool" per avviare il meld
+3. salvare nel meld dopo aver risolto il conflitto
+4. "git commit" per commitare i cambi fatti al file
+5. "git push" per inviare il file al repositorio dopo aver risolto il conflitto
