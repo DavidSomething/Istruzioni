@@ -1,0 +1,163 @@
+C:\eclipse-workspace\TestingGit>git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   bin/pack1/Calc.class
+        modified:   bin/pack1/Main.class
+        modified:   src/pack1/Calc.java
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+// in questo caso abbiamo tre file modificati, siamo nel workspace di David..
+// cambiamo workspace ed entriamo nel mio e facciamo lo status
+
+C:\eclipse-workspace\TestingGit>cd C:\ale-work\TestingGit
+
+C:\ale-work\TestingGit>git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   bin/pack1/Calc.class
+        modified:   bin/pack1/Main.class
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+// a questo punto troviamo due file modificati
+
+C:\ale-work\TestingGit>git add src/
+
+// faccio un commit e salvo la modifica come "ale"
+
+C:\ale-work\TestingGit>git commit -m "ale"
+[master e835966] ale
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+// col push noi passiamo al remoto, ovvero al Repository
+
+C:\ale-work\TestingGit>git push
+To https://github.com/DavidSomething/TestingGit.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/DavidSomething/TestingGit.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+// facendo il push, chiedo al repository di salvare il mio progetto, però la risposta che ottengo
+// mi dice che nel repository c'è già la versione di David. 
+// a volte risolve da solo il conflitto col merge, ma se questo fallisce devo fare il pull
+// Col Pull portiamo sui pc locali il lavoro contenuto nel repository, ovvero la versione di David
+
+C:\ale-work\TestingGit>git pull
+remote: Counting objects: 21, done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 21 (delta 9), reused 19 (delta 7), pack-reused 0
+Unpacking objects: 100% (21/21), done.
+From https://github.com/DavidSomething/TestingGit
+   b8aee8f..6fd377a  master     -> origin/master
+Auto-merging src/pack1/Calc.java
+CONFLICT (content): Merge conflict in src/pack1/Calc.java
+Automatic merge failed; fix conflicts and then commit the result.
+
+// Una volta preso coscienza del conflitto, chiamo il merge..
+
+C:\ale-work\TestingGit>git merge
+error: Merging is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+
+// il merge mi risponde che non è riuscito a risolvere il conflitto e quindi chiamo mergetool
+// e lui apre il meld, perché è già configurato
+
+C:\ale-work\TestingGit>git mergetool
+Merging:
+src/pack1/Calc.java
+
+Normal merge conflict for 'src/pack1/Calc.java':
+  {local}: modified file
+  {remote}: modified file
+
+// risolvo il conflitto con Meld e richiamo mergetool per sapere se ci sono file in conflitto
+
+C:\ale-work\TestingGit>git mergetool
+No files need merging
+
+// è andato tutto bene, non ho più file in conflitto. Adesso posso fare il push?
+
+C:\ale-work\TestingGit>git push
+To https://github.com/DavidSomething/TestingGit.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/DavidSomething/TestingGit.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+// Evidentemente non posso, perché il file tolto dal conflitto si trova in stage, non ho ancora
+// fatto il commit e quindi il file non è nella Directory Git!!!!
+
+C:\ale-work\TestingGit>git pull
+error: You have not concluded your merge (MERGE_HEAD exists).
+hint: Please, commit your changes before merging.
+fatal: Exiting because of unfinished merge.
+
+// e quindi mi dà errore anche facendo il pull!!!
+// Visto che potrei avere dei dubbi, faccio lo status e vedo cosa mi dice..
+
+C:\ale-work\TestingGit>git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 5 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+
+        modified:   src/pack1/Calc.java
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   bin/pack1/Calc.class
+        modified:   bin/pack1/Main.class
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        src/pack1/Calc.java.orig
+
+// Lo status mi segnala che il conflitto di src è stato risolto, ma sono 
+// ancora dentro il marge. Devo usare il commit per uscire dal merge..
+
+C:\ale-work\TestingGit>git commit -m "merged files"
+[master 512338f] merged files
+
+// col commit i file dentro stage passano alla directory git, mentre quelli in 
+// "rosso", ovvero i due file bin/, sono ancora nella directory di lavoro..
+
+// ADESSO POSSO FARE IL PUSH!!
+
+C:\ale-work\TestingGit>git push
+Counting objects: 10, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (10/10), 820 bytes | 273.00 KiB/s, done.
+Total 10 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), completed with 3 local objects.
+To https://github.com/DavidSomething/TestingGit.git
+   6fd377a..512338f  master -> master
+
+// Facendo il push, creo la versione aggiornata dei file in commit, quindi di source.
