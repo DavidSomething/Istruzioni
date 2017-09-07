@@ -1,0 +1,29 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = https://github.com/DavidSomething/TestingGit.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[gui]
+	wmstate = zoomed
+	geometry = 443x321+26+26 175 196
+[merge]
+	tool = vimdiff       
+[diff]
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+[merge]
+    tool = meld
+[mergetool "meld"]
+    path = C:/Program Files (x86)/Meld/Meld.exe
+    cmd = \"C:/Program Files (x86)/Meld/Meld.exe\" --diff \"$BASE\" \"$LOCAL\" \"$REMOTE\" --output \"$MERGED\"
