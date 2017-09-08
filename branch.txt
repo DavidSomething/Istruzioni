@@ -1,3 +1,10 @@
 per fare push di un branch locale
 sul branch:
 git push --set-upstream origin nomedelbranch
+
+
+//per il merge
+//vado a master
+git checkout master
+//scrivo il branch che volgio fare merge con master
+git merge nomedel'altrobranch
