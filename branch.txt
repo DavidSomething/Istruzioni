@@ -1,0 +1,3 @@
+per fare push di un branch locale
+sul branch:
+git push --set-upstream origin nomedelbranch
