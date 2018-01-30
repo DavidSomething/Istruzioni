@@ -1,0 +1,17 @@
+$ git status
+On branch master
+Changes to be committed:
+
+ new file: style.css
+
+Changes not staged for commit:
+
+ modified: index.html
+
+$ git stash
+Saved working directory and index state WIP on master: 5002d47 our new homepage
+HEAD is now at 5002d47 our new homepage
+
+$ git status
+On branch master
+nothing to commit, working tree clean
