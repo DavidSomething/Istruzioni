@@ -15,3 +15,4 @@ HEAD is now at 5002d47 our new homepage
 $ git status
 On branch master
 nothing to commit, working tree clean
+chiaro
