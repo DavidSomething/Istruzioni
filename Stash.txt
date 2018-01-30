@@ -14,5 +14,9 @@ HEAD is now at 5002d47 our new homepage
 
 $ git status
 On branch master
+<<<<<<< HEAD
 nothing to commit, working tree clean
 chiaro
+=======
+nothing to commit, working tree clean
+>>>>>>> 19dd0dd035f48736783b86a790560ea7efa0164b
