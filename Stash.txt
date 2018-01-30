@@ -9,7 +9,7 @@ Changes not staged for commit:
  modified: index.html
 
 $ git stash
-Saved working directory and index state WIP on master: 5002d47 our new homepage
+io mi chiamo saly
 HEAD is now at 5002d47 our new homepage
 
 $ git status
